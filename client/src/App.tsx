@@ -5,6 +5,9 @@ import MainLayout from "./layout/MainLayout";
 import { ForgatPassword } from "./auth/ForgatPassword";
 import { VerifyEmail } from "./auth/VerifyEmail";
 import { ResetPassword } from "./auth/ResetPassword";
+import HeroSection from "./components/HeroSection";
+import Profile from "./components/Profile";
+import SearchPage from "./components/SearchPage";
 
 
 const App = () => {
@@ -16,7 +19,18 @@ const App = () => {
       path:"/",
       element: <MainLayout />,
       children: [
-        // Add  child routes here as needed
+        {
+          path:"/",
+          element: <HeroSection />
+        },
+        {
+          path:"/profile",
+          element: <Profile />
+        },
+        {
+          path:"/search/:searchText",
+          element: <SearchPage />
+        }
       ]
     },
     {
