@@ -24,7 +24,6 @@ type RegisterFormErrors = {
   password?: string;
   confirmPassword?: string;
   contactNumber?: string;
-  address?: string;
   termsAccepted?: string;
 };
 
@@ -35,7 +34,6 @@ export const Register = () => {
     password: "",
     confirmPassword: "",
     contactNumber: "",
-    address: "",
     termsAccepted: false,
   });
   const [loading, setLoading] = useState(false);
@@ -83,7 +81,6 @@ export const Register = () => {
         password: "",
         confirmPassword: "",
         contactNumber: "",
-        address: "",
         termsAccepted: false,
       });
       setFormErrors({});
@@ -239,27 +236,6 @@ export const Register = () => {
           {formErrors.contactNumber && (
             <span className="block mt-1 ml-12 text-xs text-red-500">
               {formErrors.contactNumber}
-            </span>
-          )}
-        </div>
-
-        {/* Address */}
-        <div className="mb-7 relative">
-          <Input
-            type="text"
-            placeholder="Address"
-            name="address"
-            value={input.address}
-            onChange={changeEventHandler}
-            className={`pl-12 py-3 rounded-xl border-gray-200 focus:border-orange focus:ring-2 focus:ring-orange-100 transition shadow-sm ${
-              formErrors.address ? "border-red-400" : ""
-            }`}
-            autoComplete="street-address"
-          />
-          <MapPin className="absolute top-3 left-4 text-orange-400 pointer-events-none h-5 w-5" />
-          {formErrors.address && (
-            <span className="block mt-1 ml-12 text-xs text-red-500">
-              {formErrors.address}
             </span>
           )}
         </div>

@@ -8,7 +8,6 @@ export const registerSchema = z
     password: z.string().min(6, "Password must be at least 6 characters"),
     confirmPassword: z.string().min(6, "Confirm Password is required"),
     contactNumber: z.string().min(10, "Contact Number is required"),
-    address: z.string().min(5, "Address is required"),
     termsAccepted: z
       .boolean()
       .refine((val) => val === true, {
