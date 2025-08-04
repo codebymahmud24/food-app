@@ -37,6 +37,12 @@ import {
 } from "./ui/sheet";
 import { Separator } from "./ui/separator";
 
+interface User {
+  name: string;
+  profilePicture: string;
+  admin: boolean;
+}
+
 const Navbar = () => {
   // 🚀 Demo user and cart data
   const user = {
@@ -147,7 +153,7 @@ const MobileNavbar = ({
   setTheme,
   cartCount,
 }: {
-  user: any;
+  user: User;
   setTheme: (theme: string) => void;
   cartCount: number;
 }) => {

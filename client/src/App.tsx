@@ -10,6 +10,10 @@ import Profile from "./components/Profile";
 import SearchPage from "./components/SearchPage";
 import RestaurantDetail from "./components/RestaurantDetail";
 import Cart from "./components/Cart";
+import {Toaster} from "react-hot-toast"
+import Restaurant from "./admin/Restaurant";
+import AddMenu from "./admin/AddMenu";
+import Orders from "./admin/Orders";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +40,18 @@ const router = createBrowserRouter([
         path: "/cart",
         element: <Cart />,
       },
+      {
+        path:"/admin/restaurant",
+        element:<Restaurant />
+      },
+      {
+        path:"/admin/menu",
+        element:<AddMenu />
+      },
+      {
+        path:"/admin/orders",
+        element: <Orders />
+      }
     ],
   },
   {
@@ -60,13 +76,13 @@ const router = createBrowserRouter([
   },
 ]);
 
-import { ToastProvider } from "./context/toast-context";
 
 const App = () => {
   return (
-    <ToastProvider>
+    <>
       <RouterProvider router={router} />
-    </ToastProvider>
+      <Toaster />
+    </>
   );
 };
 

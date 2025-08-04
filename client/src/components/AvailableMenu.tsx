@@ -2,18 +2,19 @@
 import type { MenuItem } from "@/types/restaurantType";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
-import { useToast } from "../context/toast-context";
+import toast from "react-hot-toast";
 
 const AvailableMenu = ({ menus }: { menus: MenuItem[] }) => {
-  const { toast } = useToast();
 
   const handleAddToCart = (menu: MenuItem) => {
     console.log(menu);
     try {
       // TODO: Implement cart functionality
-      toast({message:"Item added to cart",type:"success"});
-    } catch (error) {
-      toast({message:`Failed to add ${menu.name} to cart ${error}`,type:"error"});
+      toast.success(`${menu.name} added to cart`);
+    } catch (error ) {
+      if(error instanceof Error){
+        toast.error("Failed to add item to cart");
+      }
     }
   };
 

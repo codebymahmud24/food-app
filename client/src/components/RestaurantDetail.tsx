@@ -1,7 +1,7 @@
+import toast from "react-hot-toast";
 import AvailableMenu from "./AvailableMenu";
 import { Badge } from "./ui/badge";
 import { Timer, Star, MapPin, Phone } from "lucide-react";
-import { useToast } from "../context/toast-context";
 
 // ✅ Dummy restaurant data
 const demoRestaurant = {
@@ -15,7 +15,7 @@ const demoRestaurant = {
   phone: "+1 234-567-8900",
   menus: [
     {
-      id: 1,
+      _id: "1",
       name: "Margherita Pizza",
       price: 12,
       description: "Classic delight with 100% real mozzarella cheese",
@@ -23,7 +23,7 @@ const demoRestaurant = {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQBkgxlpQcc-ISh2OpEjy-WtOuQzZ3IgKyDw&s",
     },
     {
-      id: 2,
+      _id: "2",
       name: "Pasta Alfredo",
       price: 15,
       description: "Creamy white sauce pasta with garlic bread",
@@ -36,7 +36,6 @@ const demoRestaurant = {
 const RestaurantDetail = () => {
   // ✅ Use dummy restaurant data
   const restaurant = demoRestaurant;
-  const { showToast } = useToast();
 
   return (
     <div className="max-w-6xl mx-auto my-10 px-4">
@@ -86,9 +85,10 @@ const RestaurantDetail = () => {
               onClick={() => {
                 try {
                   // Add your order logic here
-                  showToast('Order placed successfully!', 'success');
+                  toast.success("Order placed successfully!");
                 } catch (error) {
-                  showToast('Failed to place order. Please try again.', 'error');
+                  const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+                  toast.error(`Failed to place order. Please try again. ${errorMessage}`);
                 }
               }}
               className="mt-6 md:mt-0 px-6 py-3 bg-[#D19254] text-white rounded-full font-medium hover:bg-[#b17a43] transition-colors duration-200 flex items-center gap-2"
