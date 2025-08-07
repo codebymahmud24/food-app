@@ -2,16 +2,17 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-// import connectDB from './src/utils/database';
+import connectDB, { disconnectDB } from './src/db/connectDB';
+import userRoute from './src/routes/userRoute';
 
-// Load environment variables
+// Load environment variables first
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Connect to database
-// connectDB();
+connectDB();
 
 // Middleware
 app.use(cors({
@@ -41,12 +42,19 @@ app.get('/health', (req, res) => {
   });
 });
 
+// API routes
+app.use('/api/v1/user', userRoute);
+
 // API base route
 app.get('/api', (req, res) => {
   res.json({
     message: 'Food App API',
     version: '1.0.0',
-    status: 'Ready for development'
+    status: 'Ready for development',
+    endpoints: {
+      users: '/api/v1/user',
+      health: '/health'
+    }
   });
 });
 
@@ -70,10 +78,24 @@ app.use((error: any, req: express.Request, res: express.Response, next: express.
   });
 });
 
+// Graceful shutdown handling
+process.on('SIGINT', async () => {
+  console.log('\n🛑 Received SIGINT. Graceful shutdown...');
+  await disconnectDB();
+  process.exit(0);
+});
+
+process.on('SIGTERM', async () => {
+  console.log('\n🛑 Received SIGTERM. Graceful shutdown...');
+  await disconnectDB();
+  process.exit(0);
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
   console.log(`💚 Health Check: http://localhost:${PORT}/health`);
+  console.log(`👤 User API: http://localhost:${PORT}/api/v1/user`);
   console.log(`🔧 Ready for development!`);
 });
 
