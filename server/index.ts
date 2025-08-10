@@ -80,13 +80,13 @@ app.use((error: any, req: express.Request, res: express.Response, next: express.
 
 // Graceful shutdown handling
 process.on('SIGINT', async () => {
-  console.log('\n🛑 Received SIGINT. Graceful shutdown...');
+  console.log('\n🛑 Received SIGINT. Graceful shutdown from Users...');
   await disconnectDB();
   process.exit(0);
 });
 
 process.on('SIGTERM', async () => {
-  console.log('\n🛑 Received SIGTERM. Graceful shutdown...');
+  console.log('\n🛑 Received SIGTERM. Graceful shutdown from Deployments...');
   await disconnectDB();
   process.exit(0);
 });
